@@ -9,11 +9,8 @@ const Ship = (pr_name, pr_length) => {
         if (sq in squares){
             squares[sq] = "hit";
         }
-        if(sinkCheck()){
-            return "sunk";
-        } else{
-            return "not sunk";
-        }
+        if(sinkCheck()) return "sunk";
+        else return "not sunk";
     }
 
     const sinkCheck = () => {
@@ -44,16 +41,68 @@ const Ship = (pr_name, pr_length) => {
 
 
 const shipCreator = () => {
-    out = [];
-    out.push(Ship("Carrier", 5));
-    out.push(Ship("Battleship", 4));
-    out.push(Ship("Cruiser", 3));
-    out.push(Ship("Submarine", 3));
-    out.push(Ship("Destroyer", 2));
+    out = {};
+    out["Carrier"] = Ship("Carrier", 5);
+    out["Battleship"] = Ship("Battleship", 5);
+    out["Cruiser"] = Ship("Cruiser", 5);
+    out["Submarine"] = Ship("Submarine", 5);
+    out["Destroyer"] = Ship("Destroyer", 5);
     return out;
 }
 
-// let rod = shipCreator();
-// for(const ship of rod){
-//     console.log(ship);
-// }
+const gameboard = () => {
+
+    let allShips = shipCreator();
+
+    let placeBoard = new Array(100).fill(null);
+
+    let hitBoard = new Array(100).fill("unhit");
+
+    const availCreate = () => {
+        let ret = new Set();
+        for (let i = 0; i < 100; i++){
+            ret.add(i);
+        }
+        return ret;
+    }
+
+    let availMoves = availCreate();
+
+    const receiveAttack = (pos) => {
+        out = [];
+        hitBoard[pos] = "hit";
+        if(placeBoard[pos] !== null){
+            out.push("hit");
+            const stat = allShips[placeBoard[pos]].hit();
+            if(stat === "sunk"){
+                out.push(allShips[placeBoard[pos]]);
+                let loss = true;
+                for(const ship of allShips){
+                    if(!ship.isSunk()) loss = false;
+                }
+                if(loss){
+                    out.push("Gameover");
+                } else{
+                    out.push("In Play");
+                }
+            } else{
+                out.push(null);
+                out.push("In Play");
+            }
+        } else{
+            out.push("miss");
+            out.push(null);
+            out.push("In Play");
+        }
+        return out;
+    }
+
+    const shipPlacer = (ship, pos_arr) => {
+        for (const pos of pos_arr){
+            placeBoard[pos] = ship;
+        }
+        allShips[ship].squareCreate(pos_arr);
+    }
+
+    return {allShips, placeBoard, hitBoard, availMoves, receiveAttack, shipPlacer}
+}
