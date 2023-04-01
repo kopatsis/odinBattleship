@@ -8,6 +8,37 @@
     <script defer src="main.js"></script>
 </head>
 <body>
-    <div class="test"></div>
+    <div class="content">
+        <div class="leftboard">
+
+        </div>
+        <div class="sep"></div>
+        <div class="rightboard">
+
+        </div>
+    </div>
 </body>
+
+<style>
+    .left, .right{
+        height: 50px;
+        width: 50px;
+        border: 1px solid black;
+    }
+    .row{
+        display: flex;
+    }
+    .content{
+        display: flex;
+    }
+    .sep{
+        width: 2px;
+        background-color: black;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .right{
+        cursor: pointer;
+    }
+</style>
 </html>
