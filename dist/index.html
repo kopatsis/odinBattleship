@@ -6,39 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
     <script defer src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>BATTLESHIP</h1>
+
     <div class="content">
-        <div class="leftboard">
-
+        <div class="lefthouse">
+            <div class="title">Your Board:</div>
+            <div class="leftboard"></div>
         </div>
+        
         <div class="sep"></div>
-        <div class="rightboard">
-
+        <div class="righthouse">
+            <div class="title">AI Board:</div>
+            <div class="rightboard"></div>
         </div>
     </div>
+
+    <div class="instruc">Welcome to Battleship</div>
+    <button class="start">Start</button>
+    <button class="reset">Reset</button>
+
 </body>
 
-<style>
-    .left, .right{
-        height: 50px;
-        width: 50px;
-        border: 1px solid black;
-    }
-    .row{
-        display: flex;
-    }
-    .content{
-        display: flex;
-    }
-    .sep{
-        width: 2px;
-        background-color: black;
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    .right{
-        cursor: pointer;
-    }
-</style>
 </html>

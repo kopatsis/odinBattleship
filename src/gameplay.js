@@ -155,3 +155,5 @@ const AIPlayer = () => {
 
     return {board, AIAtttack}
 }
+
+export {AIPlayer, humanPlayer, gameboard, shipCreator, Ship}
