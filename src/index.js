@@ -69,7 +69,7 @@ const gameboard = () => {
     let availMoves = availCreate();
 
     const receiveAttack = (pos) => {
-        out = [];
+        out = [pos];
         hitBoard[pos] = "hit";
         if(placeBoard[pos] !== null){
             out.push("hit");
@@ -106,3 +106,72 @@ const gameboard = () => {
 
     return {allShips, placeBoard, hitBoard, availMoves, receiveAttack, shipPlacer}
 }
+
+
+const humanPlayer = (pr_AI) => {
+    const otherPlayer = pr_AI;
+
+    let board = gameboard();
+
+    let isTurn = true;
+
+    const mainMover = (square) => {
+        if(isTurn){
+            iTurn = false;
+
+            let attack_result = otherPlayer.board.receiveAttack(square);
+
+            if(attack_result[2]==="Gameover"){
+                return [attack_result, [null, null, null]];
+            }else {
+                let received_result = board.receiveAttack(otherPlayer.AIAtttack());
+                isTurn = true;
+                return [attack_result, received_result];
+            }
+        } 
+    }
+
+    const retOther = () => {
+        return otherPlayer;
+    }
+
+    return {board, mainMover, retOther}
+}
+
+const AIPlayer = () => {
+    let board = gameboard();
+
+    const AIAtttack = () => {
+        let iterNum = Math.floor(Math.random()*board.availMoves.size);
+        let count = 0;
+        for(const item of board.availMoves){
+            if(iterNum === count){
+                board.availMoves.delete(item);
+                return item;
+            }
+            count++;
+        }
+    }
+
+    return {board, AIAtttack}
+}
+
+
+// let rod = AIPlayer();
+
+// let me = humanPlayer(rod);
+
+// rod.board.shipPlacer("Carrier", [0,1,2,3,4]);
+// rod.board.shipPlacer("Battleship", [20, 30, 40, 50]);
+// rod.board.shipPlacer("Cruiser", [34,35,36]);
+// rod.board.shipPlacer("Submarine", [69,79,89]);
+// rod.board.shipPlacer("Destroyer", [94, 95]);
+// console.log(me.retOther().board.placeBoard);
+// me.board.shipPlacer("Carrier", [5,6,7,8,9]);
+// me.board.shipPlacer("Battleship", [30, 40, 50, 60]);
+// me.board.shipPlacer("Cruiser", [44,45,46]);
+// me.board.shipPlacer("Submarine", [29,39,49]);
+// me.board.shipPlacer("Destroyer", [0, 1]);
+// console.log(me.board.placeBoard);
+
+// console.log(me.mainMover(0));
