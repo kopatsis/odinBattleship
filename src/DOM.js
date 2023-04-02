@@ -77,21 +77,70 @@ const overallDOM = () => {
                     board[start+i*10].classList.add('ship');
                 }
             }
+            changeShip();
         }
+    }
+
+    const changeShip = () => {
+        if(currentShip==="Carrier"){
+            currentShip = "Battleship";
+            currentLen = 4;
+        } else if (currentShip==="Battleship"){
+            currentShip = "Cruiser";
+            currentLen = 3;
+        } else if (currentShip==="Cruiser"){
+            currentShip = "Submarine";
+        } else if (currentShip==="Submarine"){
+            currentShip = "Destroyer";
+            currentLen = 2;
+        } else{
+            for(const sq of board){
+                sq.onclick = '';
+                sq.onmouseover = '';
+                sq.onmouseout = '';
+            }
+        }
+    }
+
+    const addListeners = () => {
+        for(const sq of board){
+            sq.onclick = shipPlace;
+            sq.onmouseover = hoverFunc;
+            sq.onmouseout = unhoverFunc;
+        }
+        window.addEventListener('keyup', rSwitches);
+    }
+
+    const rSwitches = (e) => {
+        if (e.key==="r") switchHoriz();
     }
 
     const getShip = () => {
         return currentShip;
     }
 
+    const setShip = (pr) => {
+        currentShip = pr;
+    }
+
     const getHoriz = () => {
         return horiz;
+    }
+
+    const switchHoriz = () => {
+        horiz = !horiz;
     }
 
     const getLen = () => {
         return currentLen;
     }
 
-    return {validChecker, getShip, getHoriz, getLen, hoverFunc, unhoverFunc, shipPlace}
+    const setLen = (len) => {
+        currentLen = len;
+    }
+
+    return {validChecker, getShip, getHoriz, getLen, hoverFunc, unhoverFunc, shipPlace, setShip, switchHoriz, setLen, addListeners}
     
 }
+
+export {overallDOM}

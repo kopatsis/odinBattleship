@@ -7,4 +7,5 @@ populator();
 let AI = AIPlayer();
 let human = humanPlayer();
 
-
+let DOMob = overallDOM();
+DOMob.addListeners();

@@ -41,7 +41,7 @@ const Ship = (pr_name, pr_length) => {
 
 
 const shipCreator = () => {
-    out = {};
+    let out = {};
     out["Carrier"] = Ship("Carrier", 5);
     out["Battleship"] = Ship("Battleship", 4);
     out["Cruiser"] = Ship("Cruiser", 3);
