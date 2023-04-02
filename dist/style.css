@@ -27,3 +27,21 @@ button{
 body{
     font-family: 'Courier New', Courier, monospace;
 }
+.ship {
+    background-color: darkgray;
+}
+.ship.hit {
+    background-color: red;
+}
+.miss{
+    background-color: orange;
+}
+.valid{
+    background-color: green;
+}
+.invalid{
+    background-color: crimson;
+}
+.ship.invalid{
+    background-color: red;
+}
