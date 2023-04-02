@@ -2,7 +2,7 @@
     height: 50px;
     width: 50px;
     border: 1px solid black;
-    background-color: aqua;
+    background-color: rgba(147, 255, 225, 0.8);
 }
 .row{
     display: flex;
@@ -16,9 +16,14 @@
     margin-left: 20px;
     margin-right: 20px;
 }
-.right{
+.left{
     cursor: pointer;
 }
 button{
     cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body{
+    font-family: 'Courier New', Courier, monospace;
 }

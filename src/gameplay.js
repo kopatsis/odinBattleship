@@ -43,10 +43,10 @@ const Ship = (pr_name, pr_length) => {
 const shipCreator = () => {
     out = {};
     out["Carrier"] = Ship("Carrier", 5);
-    out["Battleship"] = Ship("Battleship", 5);
-    out["Cruiser"] = Ship("Cruiser", 5);
-    out["Submarine"] = Ship("Submarine", 5);
-    out["Destroyer"] = Ship("Destroyer", 5);
+    out["Battleship"] = Ship("Battleship", 4);
+    out["Cruiser"] = Ship("Cruiser", 3);
+    out["Submarine"] = Ship("Submarine", 3);
+    out["Destroyer"] = Ship("Destroyer", 2);
     return out;
 }
 
@@ -122,7 +122,7 @@ const humanPlayer = (pr_AI) => {
             let attack_result = otherPlayer.board.receiveAttack(square);
 
             if(attack_result[2]==="Gameover"){
-                return [attack_result, [null, null, null]];
+                return [attack_result, [null, null, null, null]];
             }else {
                 let received_result = board.receiveAttack(otherPlayer.AIAtttack());
                 isTurn = true;
