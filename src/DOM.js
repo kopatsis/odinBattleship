@@ -8,6 +8,10 @@ const overallDOM = () => {
 
     let currentLen = 5;
 
+    let orderedPositions = [];
+
+    let readyState = false;
+
     const validChecker = (square, len) => {
         if(horiz){
             if((square%10 + len) > 10) return 10 - (square%10 + len);
@@ -30,7 +34,7 @@ const overallDOM = () => {
         let validity = validChecker(start, currentLen);
         let classToAdd;
         if(validity < 0){
-            highlight -= validity;
+            highlight += validity;
             classToAdd = 'invalid';
         } else if (validity===0) classToAdd = 'invalid';
         else classToAdd = 'valid';
@@ -67,16 +71,24 @@ const overallDOM = () => {
 
     const shipPlace = (e) => {
         if(validChecker(parseInt(e.target.classList[1]), currentLen) === 1){
-            let start = parseInt(e.target.classList[1]);
+            const start = parseInt(e.target.classList[1]);
+            let currentPoses = [];
             if(horiz){
                 for(let i = 0; i < currentLen; i++){
+                    board[start+i].classList.remove('valid');
+                    board[start+i].classList.remove('invalid');
                     board[start+i].classList.add('ship');
+                    currentPoses.push(start+i);
                 }
             } else {
                 for(let i = 0; i < currentLen; i++){
+                    board[start+i*10].classList.remove('valid');
+                    board[start+i*10].classList.remove('invalid');
                     board[start+i*10].classList.add('ship');
+                    currentPoses.push(start+i*10);
                 }
             }
+            orderedPositions.push(currentPoses);
             changeShip();
         }
     }
@@ -99,6 +111,9 @@ const overallDOM = () => {
                 sq.onmouseover = '';
                 sq.onmouseout = '';
             }
+            document.querySelector('.switch').onclick = '';
+            document.querySelector('.switch').style.visibility = "hidden";
+            readyState = true;
         }
     }
 
@@ -108,11 +123,16 @@ const overallDOM = () => {
             sq.onmouseover = hoverFunc;
             sq.onmouseout = unhoverFunc;
         }
-        window.addEventListener('keyup', rSwitches);
+        document.querySelector('.switch').onclick = switches;
     }
 
-    const rSwitches = (e) => {
-        if (e.key==="r") switchHoriz();
+    const switches = (e) => {
+        switchHoriz();
+        if(horiz){
+            document.querySelector('.switch').textContent = "Change to Vertical";
+        } else {
+            document.querySelector('.switch').textContent = "Change to Horizontal";
+        }
     }
 
     const getShip = () => {
@@ -139,7 +159,15 @@ const overallDOM = () => {
         currentLen = len;
     }
 
-    return {validChecker, getShip, getHoriz, getLen, hoverFunc, unhoverFunc, shipPlace, setShip, switchHoriz, setLen, addListeners}
+    const status = () => {
+        return readyState;
+    }
+
+    const retPos = () => {
+        return orderedPositions;
+    }
+
+    return {validChecker, getShip, getHoriz, getLen, hoverFunc, unhoverFunc, shipPlace, setShip, switchHoriz, setLen, addListeners, status, retPos}
     
 }
 
