@@ -153,7 +153,45 @@ const AIPlayer = () => {
         }
     }
 
-    return {board, AIAtttack}
+    const AIplace = () => {
+        for(const shipname in board.allShips){
+            const s_len = board.allShips[shipname].length;
+            let unplaced = true;
+            while(unplaced){
+                const randpos = Math.floor(Math.random()*100);
+                const orient = Math.floor(Math.random()*2);
+                let valid_place = true;
+                if(orient===0){
+                    if((randpos+s_len)%10 > 10) valid_place = false;
+                } else {
+                    if(Math.floor((randpos+s_len*10)/10) > 10) valid_place = false;
+                }
+                for(let i = 0; i < s_len; i++){
+                    if(orient===0){
+                        if((randpos+i)%10 >= 10) valid_place = false;
+                        else if(board.placeBoard[randpos+i] !== null) valid_place = false;
+                    } else {
+                        if((randpos+i*10)/10 >= 10) valid_place = false;
+                        else if(board.placeBoard[randpos+i*10] !== null) valid_place = false;
+                    }
+                }
+                if(valid_place){
+                    let place_arr = [];
+                    for(let i = 0; i < s_len; i++){
+                        if(orient===0){
+                            place_arr.push(randpos+i);
+                        } else {
+                            place_arr.push(randpos+i*10);
+                        }
+                    }
+                    board.shipPlacer(shipname, place_arr);
+                    unplaced = false;
+                }
+            }
+        }
+    }
+
+    return {board, AIAtttack, AIplace}
 }
 
 export {AIPlayer, humanPlayer, gameboard, shipCreator, Ship}
