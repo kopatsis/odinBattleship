@@ -5,16 +5,29 @@ import {overallDOM} from "./DOM"
 populator();
 
 let AI = AIPlayer();
-let human = humanPlayer();
+let human = humanPlayer(AI);
 let DOMob = overallDOM();
 
+const left = document.querySelectorAll('.left');
+const right = document.querySelectorAll('.right');
 
-// const gamePlay = () => {
-//     let inProgress = true;
-//     while(inProgress){
-//         const result = human.mainMover();
-//     }
-// }
+
+const gameRound = (e) => {
+    const result = human.mainMover(parseInt(e.target.classList[1]));
+    console.log(result);
+}
+
+
+const gamePlay = () => {
+    right.forEach(sq => sq.onclick = gameRound);
+    document.querySelector('.leftboard').style.cursor = "default";
+    document.querySelector('.rightboard').style.cursor = "pointer";
+    // let inProgress = true;
+    // while(inProgress){
+        // const result = human.mainMover();
+        // console.log(result);
+    // }
+}
 
 const gameStart = () => {
     if(DOMob.status()){
@@ -25,7 +38,8 @@ const gameStart = () => {
         human.board.shipPlacer("Cruiser", positions[2]);
         human.board.shipPlacer("Submarine", positions[3]);
         human.board.shipPlacer("Destroyer", positions[4]);
-        // gamePlay();
+        document.querySelector('.instruct').textContent = "Place your first hit on your opponent's board";
+        gamePlay();
     }
 }
 

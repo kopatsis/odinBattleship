@@ -69,7 +69,7 @@ const gameboard = () => {
     let availMoves = availCreate();
 
     const receiveAttack = (pos) => {
-        out = [pos];
+        let out = [pos];
         hitBoard[pos] = "hit";
         if(placeBoard[pos] !== null){
             out.push("hit");
@@ -117,7 +117,7 @@ const humanPlayer = (pr_AI) => {
 
     const mainMover = (square) => {
         if(isTurn){
-            iTurn = false;
+            isTurn = false;
 
             let attack_result = otherPlayer.board.receiveAttack(square);
 
