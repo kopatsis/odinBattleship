@@ -75,10 +75,10 @@ const gameboard = () => {
             out.push("hit");
             const stat = allShips[placeBoard[pos]].hit();
             if(stat === "sunk"){
-                out.push(allShips[placeBoard[pos]]);
+                out.push(placeBoard[pos]);
                 let loss = true;
-                for(const ship of allShips){
-                    if(!ship.isSunk()) loss = false;
+                for(const ship in allShips){
+                    if(!allShips[ship].isSunk()) loss = false;
                 }
                 if(loss){
                     out.push("Gameover");
@@ -162,17 +162,17 @@ const AIPlayer = () => {
                 const orient = Math.floor(Math.random()*2);
                 let valid_place = true;
                 if(orient===0){
-                    if((randpos+s_len)%10 > 10) valid_place = false;
+                    if((randpos%10)+s_len > 10) valid_place = false;
                 } else {
                     if(Math.floor((randpos+s_len*10)/10) > 10) valid_place = false;
                 }
                 for(let i = 0; i < s_len; i++){
                     if(orient===0){
-                        if((randpos+i)%10 >= 10) valid_place = false;
-                        else if(board.placeBoard[randpos+i] !== null) valid_place = false;
+                        // if((randpos+i)%10 >= 10) valid_place = false;
+                        if(board.placeBoard[randpos+i] !== null) valid_place = false;
                     } else {
-                        if((randpos+i*10)/10 >= 10) valid_place = false;
-                        else if(board.placeBoard[randpos+i*10] !== null) valid_place = false;
+                        // if((randpos+i*10)/10 >= 10) valid_place = false;
+                        if(board.placeBoard[randpos+i*10] !== null) valid_place = false;
                     }
                 }
                 if(valid_place){

@@ -19,6 +19,7 @@ const gameOverFunc = () => {
 
 
 const gameRound = (e) => {
+    document.querySelector('.instruct').textContent = "Place your next hit on your opponent's board";
     const result = human.mainMover(parseInt(e.target.classList[1]));
     let res1 = "";
     let res2 = "";
@@ -39,6 +40,7 @@ const gameRound = (e) => {
     document.querySelector('.result1').textContent = res1;
     if(result[0][3]==="Gameover"){
         document.querySelector('.result2').textContent = '';
+        document.querySelector('.instruct').textContent = '';
         gameOverFunc();
     } else {
         if(result[1][1]==="hit"){
@@ -56,6 +58,7 @@ const gameRound = (e) => {
         }
         document.querySelector('.result2').textContent = res2;
         if(result[1][3]==="Gameover"){
+            document.querySelector('.instruct').textContent = '';
             gameOverFunc();
         }
     }
@@ -64,6 +67,7 @@ const gameRound = (e) => {
 const gameStart = () => {
     if(DOMob.status()){
         AI.AIplace();
+        console.log(AI.board.placeBoard);
         const positions = DOMob.retPos();
         human.board.shipPlacer("Carrier", positions[0]);
         human.board.shipPlacer("Battleship", positions[1]);
