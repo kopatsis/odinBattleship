@@ -51,3 +51,9 @@ const main = () => {
 }
 
 main();
+
+const reset = () => {
+    window.location.reload();
+}
+
+document.querySelector('.reset').onclick = reset;
