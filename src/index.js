@@ -24,46 +24,48 @@ const gameOverFunc = () => {
 
 const gameRound = (e) => {
     document.querySelector('.instruct').textContent = "Place your next hit on your opponent's board";
-    const result = human.mainMover(parseInt(e.target.classList[1]));
-    let res1 = "";
-    let res2 = "";
-    if(result[0][1]==="hit"){
-        right[result[0][0]].classList.add('ship');
-        right[result[0][0]].classList.add('hit');
-        res1 += "Your strike was a hit";
-        if(result[0][2] !== null){
-            res1 += `, you sunk your opponent's ${result[0][2]}. `;
-            if(result[0][3]==="Gameover"){
-                res1 += "You won the game!";
-            }
-        }
-    } else {
-        right[result[0][0]].classList.add('miss');
-        res1 += "Your strike was a miss";
-    }
-    document.querySelector('.result1').textContent = res1;
-    if(result[0][3]==="Gameover"){
-        document.querySelector('.result2').textContent = '';
-        document.querySelector('.instruct').textContent = '';
-        gameOverFunc();
-    } else {
-        if(result[1][1]==="hit"){
-            left[result[1][0]].classList.add('hit');
-            res2 += "Your opponent's strike was a hit";
-            if(result[1][2] !== null){
-                res2 += `, your opponent sunk your ${result[1][2]}. `;
-                if(result[1][3]==="Gameover"){
-                    res2 += "You lost the game :(";
+    if(!e.target.classList.contains('miss') && !e.target.classList.contains('hit')) {
+        const result = human.mainMover(parseInt(e.target.classList[1]));
+        let res1 = "";
+        let res2 = "";
+        if(result[0][1]==="hit"){
+            right[result[0][0]].classList.add('ship');
+            right[result[0][0]].classList.add('hit');
+            res1 += "Your strike was a hit";
+            if(result[0][2] !== null){
+                res1 += `, you sunk your opponent's ${result[0][2]}. `;
+                if(result[0][3]==="Gameover"){
+                    res1 += "You won the game!";
                 }
             }
         } else {
-            left[result[1][0]].classList.add('miss');
-            res2 += "Your opponent's strike was a miss";
+            right[result[0][0]].classList.add('miss');
+            res1 += "Your strike was a miss";
         }
-        document.querySelector('.result2').textContent = res2;
-        if(result[1][3]==="Gameover"){
+        document.querySelector('.result1').textContent = res1;
+        if(result[0][3]==="Gameover"){
+            document.querySelector('.result2').textContent = '';
             document.querySelector('.instruct').textContent = '';
             gameOverFunc();
+        } else {
+            if(result[1][1]==="hit"){
+                left[result[1][0]].classList.add('hit');
+                res2 += "Your opponent's strike was a hit";
+                if(result[1][2] !== null){
+                    res2 += `, your opponent sunk your ${result[1][2]}. `;
+                    if(result[1][3]==="Gameover"){
+                        res2 += "You lost the game :(";
+                    }
+                }
+            } else {
+                left[result[1][0]].classList.add('miss');
+                res2 += "Your opponent's strike was a miss";
+            }
+            document.querySelector('.result2').textContent = res2;
+            if(result[1][3]==="Gameover"){
+                document.querySelector('.instruct').textContent = '';
+                gameOverFunc();
+            }
         }
     }
 }
