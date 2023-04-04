@@ -8,6 +8,14 @@ let AI = AIPlayer();
 let human = humanPlayer();
 let DOMob = overallDOM();
 
+
+// const gamePlay = () => {
+//     let inProgress = true;
+//     while(inProgress){
+//         const result = human.mainMover();
+//     }
+// }
+
 const gameStart = () => {
     if(DOMob.status()){
         AI.AIplace();
@@ -17,6 +25,7 @@ const gameStart = () => {
         human.board.shipPlacer("Cruiser", positions[2]);
         human.board.shipPlacer("Submarine", positions[3]);
         human.board.shipPlacer("Destroyer", positions[4]);
+        // gamePlay();
     }
 }
 

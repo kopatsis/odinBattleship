@@ -97,14 +97,18 @@ const overallDOM = () => {
         if(currentShip==="Carrier"){
             currentShip = "Battleship";
             currentLen = 4;
+            document.querySelector('.instruct').textContent = "Place your Battleship on a valid position on your board";
         } else if (currentShip==="Battleship"){
             currentShip = "Cruiser";
             currentLen = 3;
+            document.querySelector('.instruct').textContent = "Place your Cruiser on a valid position on your board";
         } else if (currentShip==="Cruiser"){
             currentShip = "Submarine";
+            document.querySelector('.instruct').textContent = "Place your Submarine on a valid position on your board";
         } else if (currentShip==="Submarine"){
             currentShip = "Destroyer";
             currentLen = 2;
+            document.querySelector('.instruct').textContent = "Place your Destroyer on a valid position on your board";
         } else{
             for(const sq of board){
                 sq.onclick = '';
@@ -114,6 +118,7 @@ const overallDOM = () => {
             document.querySelector('.switch').onclick = '';
             document.querySelector('.switch').style.visibility = "hidden";
             readyState = true;
+            document.querySelector('.instruct').textContent = "Click Start to start your game";
         }
     }
 
