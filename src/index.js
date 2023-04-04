@@ -11,10 +11,14 @@ let DOMob = overallDOM();
 const left = document.querySelectorAll('.left');
 const right = document.querySelectorAll('.right');
 
+const reset = () => {
+    window.location.reload();
+}
+
 const gameOverFunc = () => {
     right.forEach(sq => sq.onclick = '');
     document.querySelector('.rightboard').style.cursor = "default";
-    document.querySelector('.start').onclick = reset();
+    document.querySelector('.start').onclick = reset;
 }
 
 
@@ -89,9 +93,5 @@ const main = () => {
 }
 
 main();
-
-const reset = () => {
-    window.location.reload();
-}
 
 document.querySelector('.reset').onclick = reset;

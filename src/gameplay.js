@@ -6,9 +6,7 @@ const Ship = (pr_name, pr_length) => {
     let sunk = false;
 
     const hit = (sq) => {
-        if (sq in squares){
-            squares[sq] = "hit";
-        }
+        squares[sq] = "hit";
         if(sinkCheck()) return "sunk";
         else return "not sunk";
     }
@@ -35,6 +33,10 @@ const Ship = (pr_name, pr_length) => {
     const isAssigned = () => {
         return assigned;
     }
+
+    // const retSq = () => {
+    //     return squares;
+    // }
 
     return {name, length, squares, hit, squareCreate, isSunk, isAssigned}
 }
@@ -73,7 +75,7 @@ const gameboard = () => {
         hitBoard[pos] = "hit";
         if(placeBoard[pos] !== null){
             out.push("hit");
-            const stat = allShips[placeBoard[pos]].hit();
+            const stat = allShips[placeBoard[pos]].hit(pos);
             if(stat === "sunk"){
                 out.push(placeBoard[pos]);
                 let loss = true;
