@@ -1,6 +1,6 @@
 .left, .right{
-    height: 50px;
-    width: 50px;
+    height: min(4.55vw, 50px);
+    width: min(4.55vw, 50px);
     border: 1px solid black;
     background-color: rgba(147, 255, 225, 0.8);
 }
@@ -13,8 +13,8 @@
 .sep{
     width: 2px;
     background-color: black;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: min(1.8vw, 20px);
+    margin-right: min(1.8vw, 20px);
 }
 .leftboard{
     cursor: pointer;
